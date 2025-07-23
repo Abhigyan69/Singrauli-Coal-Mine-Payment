@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fake UPI Donation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .upi-box {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .upi-box img {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+
+    .upi-box h2 {
+      margin: 5px 0;
+    }
+
+    .upi-id {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .amount-input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .pay-btn {
+      background: #4caf50;
+      color: white;
+      padding: 12px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .pay-btn:hover {
+      background: #45a049;
+    }
+
+    .thanks {
+      display: none;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #00e676;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="upi-box">
+    <img src="pay2.jpg" alt="UPI Logo">
+    <h2>Pay to: Singrauli Coal Mines</h2>
+    <div class="upi-id">UPI ID: coalminers@upi</div>
+
+    <input type="number" class="amount-input" placeholder="Enter Amount (₹)">
+
+    <button class="pay-btn" onclick="showThanks()">Pay</button>
+
+    <div class="thanks" id="thanksMsg">✅ Payment Successful! Thank you!</div>
+  </div>
+
+  <audio id="paySound" src="pay.mp3"></audio>
+
+  <footer>Just a demo. No real money involved. Made by Abhigyan 😎</footer>
+
+  <script>
+    function showThanks() {
+      document.getElementById('thanksMsg').style.display = 'block';
+      document.getElementById('paySound').play();
+    }
+  </script>
+</body>
+</html>
