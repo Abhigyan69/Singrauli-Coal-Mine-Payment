@@ -1,106 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fake UPI Donation</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .upi-box {
-      background: #fff;
-      color: #000;
-      padding: 20px;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    .upi-box img {
-      width: 120px;
-      margin-bottom: 15px;
-    }
-
-    .upi-box h2 {
-      margin: 5px 0;
-    }
-
-    .upi-id {
-      color: #555;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    .amount-input {
-      width: 80%;
-      padding: 10px;
-      font-size: 16px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    .pay-btn {
-      background: #4caf50;
-      color: white;
-      padding: 12px 30px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .pay-btn:hover {
-      background: #45a049;
-    }
-
-    .thanks {
-      display: none;
-      margin-top: 20px;
-      font-weight: bold;
-      color: #00e676;
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+        
+        .card-header {
+            background: #1a237e;
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%231a237e' fill-opacity='1' d='M0,224L60,234.7C120,245,240,267,360,256C480,245,600,203,720,181.3C840,160,960,160,1080,170.7C1200,181,1320,203,1380,213.3L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+        }
+        
+        .upi-icon {
+            background: #3949ab;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .payment-details {
+            background: #f5f7ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #e0e0ff;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #d1d9ff;
+        }
+        
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            width: 120px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            flex: 1;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .amount-input {
+            margin-bottom: 30px;
+        }
+        
+        .amount-input label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: #f5f7ff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #d1d9ff;
+        }
+        
+        .input-group span {
+            padding: 0 20px;
+            background: #3949ab;
+            color: white;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .input-group input {
+            flex: 1;
+            border: none;
+            padding: 0 20px;
+            height: 55px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: transparent;
+            color: #1a237e;
+            outline: none;
+        }
+        
+        .input-group input::placeholder {
+            color: #aab;
+            font-weight: 500;
+        }
+        
+        .pay-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(to right, #1a237e, #3949ab);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(57, 73, 171, 0.4);
+        }
+        
+        .pay-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(57, 73, 171, 0.5);
+        }
+        
+        .pay-button:active {
+            transform: translateY(1px);
+        }
+        
+        .demo-note {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background: #fff8e1;
+            border-radius: 12px;
+            color: #5d4037;
+            font-size: 0.9rem;
+            border: 1px dashed #ffd54f;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        .security {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            color: #c5e1a5;
+            font-size: 0.9rem;
+        }
+        
+        .security i {
+            margin-right: 8px;
+        }
+        
+        .made-by {
+            margin-top: 10px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @media (max-width: 500px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                padding: 20px;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                margin-bottom: 5px;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="upi-box">
-    <img src="pay2.jpg" alt="UPI Logo">
-    <h2>Pay to: Singrauli Coal Mines</h2>
-    <div class="upi-id">UPI ID: coalminers@upi</div>
-
-    <input type="number" class="amount-input" placeholder="Enter Amount (₹)">
-
-    <button class="pay-btn" onclick="showThanks()">Pay</button>
-
-    <div class="thanks" id="thanksMsg">✅ Payment Successful! Thank you!</div>
-  </div>
-
-  <audio id="paySound" src="pay.mp3"></audio>
-
-  <footer>Just a demo. No real money involved. Made by Abhigyan 😎</footer>
-
-  <script>
-    function showThanks() {
-      document.getElementById('thanksMsg').style.display = 'block';
-      document.getElementById('paySound').play();
-    }
-  </script>
+    <div class="container">
+        <div class="header">
+            <h1>UPI Payment Gateway</h1>
+            <p>Secure. Instant. Reliable.</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <div class="upi-icon">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="card-title">Payment Request</div>
+            </div>
+            
+            <div class="card-body">
+                <div class="payment-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Pay to:</div>
+                        <div class="detail-value">Singrauli Coal Mines</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">UPI ID:</div>
+                        <div class="detail-value">coalminers@upi</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Purpose:</div>
+                        <div class="detail-value">Donation</div>
+                    </div>
+                </div>
+                
+                <div class="amount-input">
+                    <label for="amount">Enter Amount (₹)</label>
+                    <div class="input-group">
+                        <span>₹</span>
+                        <input type="number" id="amount" placeholder="0.00" min="1">
+                    </div>
+                </div>
+                
+                <button class="pay-button" onclick="processPayment()">
+                    <i class="fas fa-lock"></i> SECURE PAY
+                </button>
+                
+                <div class="demo-note">
+                    <i class="fas fa-exclamation-circle"></i> Just a demo. No real money involved.
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="security">
+                <i class="fas fa-shield-alt"></i> 128-bit Secure Payment Gateway
+            </div>
+            <div class="made-by">Made by Abhigyan</div>
+        </div>
+    </div>
+    
+    <script>
+        function processPayment() {
+            const amount = document.getElementById('amount').value;
+            
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+            
+            const paymentDetails = {
+                payTo: 'Singrauli Coal Mines',
+                upiId: 'coalminers@upi',
+                amount: parseFloat(amount).toFixed(2),
+                status: 'Success',
+                transactionId: 'TXN' + Math.floor(Math.random() * 1000000000),
+                timestamp: new Date().toLocaleString()
+            };
+            
+            const message = ` Payment Successful!\n\n` +
+                            `Paid: ₹${paymentDetails.amount}\n` +
+                            `To: ${paymentDetails.payTo}\n` +
+                            `UPI ID: ${paymentDetails.upiId}\n\n` +
+                            `Transaction ID: ${paymentDetails.transactionId}\n` +
+                            `Time: ${paymentDetails.timestamp}\n\n` +
+                            `💡 Remember: This is a demo transaction. No real money was transferred.`;
+            
+            alert(message);
+        }
+        
+        // Focus amount field on page load
+        window.onload = function() {
+            document.getElementById('amount').focus();
+        }
+    </script>
 </body>
 </html>
